@@ -46,5 +46,8 @@ public AppUser registerUser(AppUser user, String roleName) {
         }
         throw new RuntimeException("ایمیل یا پسورد اشتباه است");
     }
+    public AppUser findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
 
