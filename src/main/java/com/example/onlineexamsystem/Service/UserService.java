@@ -38,13 +38,15 @@ public AppUser registerUser(AppUser user, String roleName) {
         return userRepository.save(user);  // ذخیره کاربر در دیتابیس
     }
     public AppUser login(String email, String password) {
-        List<AppUser> users = userRepository.findAll();
-        for (AppUser u : users) {
-            if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
-                return u;
-            }
+        AppUser user = userRepository.findByEmail(email);
+
+        if (user == null) {
+        return  null;
         }
-        throw new RuntimeException("ایمیل یا پسورد اشتباه است");
+        if (!user.getPassword().equals(password)) {
+            return null;
+        }
+        return user;
     }
     public AppUser findByEmail(String email) {
         return userRepository.findByEmail(email);
