@@ -18,13 +18,22 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    // ثبت درس با POST و JSON
     @PostMapping("/create")
-    public ResponseEntity<Course> createCourse(
-            @RequestParam String name,
-            @RequestParam Long teacherId) {
-        return ResponseEntity.ok(courseService.createCourse(name, teacherId));
+    public ResponseEntity<Course> createCourse(@RequestBody Course courseRequest) {
+
+        if (courseRequest.getTeacher() == null || courseRequest.getTeacher().getId() == null) {
+            return ResponseEntity.badRequest().build(); // اگر ایدی استاد ارسال نشده باشد
+        }
+
+        Course saved = courseService.createCourse(
+                courseRequest.getCourseName(),
+                courseRequest.getTeacher().getId()
+        );
+        return ResponseEntity.ok(saved);
     }
 
+    // دریافت لیست همه درس‌ها
     @GetMapping
     public List<Course> getCourses() {
         return courseService.getAllCourses();
