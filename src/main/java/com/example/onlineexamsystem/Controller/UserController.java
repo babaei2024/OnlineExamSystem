@@ -26,14 +26,17 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody AppUser user) {
+    public ResponseEntity<?> registerUser(
+            @RequestBody AppUser user,
+            @RequestParam String role) {   // دریافت role از QueryParam
         try {
-            AppUser savedUser = userService.registerUser(user, user.getRole().getRoleName());
+            AppUser savedUser = userService.registerUser(user, role);
             return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
