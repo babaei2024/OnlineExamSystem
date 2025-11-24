@@ -26,29 +26,30 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> registerUser(
-            @RequestBody AppUser user,
-            @RequestParam String role) {
-            AppUser savedUser = userService.registerUser(user,role);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<?> registerUser(@RequestBody AppUser user) {
+        try {
+            AppUser savedUser = userService.registerUser(user, user.getRole().getRoleName());
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         AppUser user = userService.findByEmail(request.getEmail());
 
-        if (user == null) {
-            return ResponseEntity.status(404).body("User not found");
-        }
-        if (!user.getPassword().equals(request.getPassword())) {
+        if (user == null) return ResponseEntity.status(404).body("User not found");
+        if (!user.getPassword().equals(request.getPassword()))
             return ResponseEntity.status(401).body("Incorrect password");
-        }
 
         return ResponseEntity.ok(
                 Map.of(
-                        "message" , "Login successful" ,
-                        "userId" ,user.getId(),
-                        "fullName" , user.getFirstName() + " " + user.getLastName(),
-                        "role" , user.getRole().getRoleName()));   // اطلاعات کاربر را برمی‌گردانیم
+                        "message", "Login successful",
+                        "userId", user.getId(),
+                        "fullName", user.getFirstName() + " " + user.getLastName(),
+                        "role", user.getRole().getRoleName()
+                )
+        );
     }
 }

@@ -1,6 +1,7 @@
 package com.example.onlineexamsystem.Controller;
 
 import com.example.onlineexamsystem.Model.Course;
+import com.example.onlineexamsystem.Model.CreateCourseRequest;
 import com.example.onlineexamsystem.Service.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +19,22 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    // ثبت درس با POST و JSON
+    // ثبت درس
     @PostMapping("/create")
-    public ResponseEntity<Course> createCourse(@RequestBody Course courseRequest) {
+    public ResponseEntity<?> createCourse(@RequestBody CreateCourseRequest request) {
 
-        if (courseRequest.getTeacher() == null || courseRequest.getTeacher().getId() == null) {
-            return ResponseEntity.badRequest().build(); // اگر ایدی استاد ارسال نشده باشد
+        if (request.getCourseName() == null || request.getCourseName().isEmpty()) {
+            return ResponseEntity.badRequest().body("Course name is required");
+        }
+        if (request.getTeacherId() == null) {
+            return ResponseEntity.badRequest().body("Teacher ID is required");
         }
 
-        Course saved = courseService.createCourse(
-                courseRequest.getCourseName(),
-                courseRequest.getTeacher().getId()
-        );
+        Course saved = courseService.createCourse(request.getCourseName(), request.getTeacherId());
         return ResponseEntity.ok(saved);
     }
 
-    // دریافت لیست همه درس‌ها
+    // دریافت لیست درس‌ها
     @GetMapping
     public List<Course> getCourses() {
         return courseService.getAllCourses();

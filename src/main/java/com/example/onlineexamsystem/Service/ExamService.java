@@ -13,11 +13,13 @@ public class ExamService {
     private final ExamRepository examRepository;
     private final CourseRepository courseRepository;
 
-    public ExamService(ExamRepository examRepository , CourseRepository courseRepository){
+    public ExamService(ExamRepository examRepository, CourseRepository courseRepository) {
         this.examRepository = examRepository;
         this.courseRepository = courseRepository;
     }
-    public Exam createExam(String examTitle, String examDate, String courseId) {
+
+    public Exam createExam(String examTitle, String examDate, Long courseId) {
+
         Course course = courseRepository.findById(courseId).orElse(null);
         if (course == null) throw new RuntimeException("Course not found");
 
@@ -28,6 +30,7 @@ public class ExamService {
 
         return examRepository.save(exam);
     }
+
     public List<Exam> getExams() {
         return examRepository.findAll();
     }
