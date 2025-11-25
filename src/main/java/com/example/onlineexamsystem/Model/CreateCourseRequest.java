@@ -7,3 +7,4 @@ public class CreateCourseRequest {
     private String courseName;
     private Long teacherId;
 }
+
