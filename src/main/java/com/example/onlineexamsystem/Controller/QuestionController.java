@@ -1,12 +1,11 @@
 package com.example.onlineexamsystem.Controller;
 
 import com.example.onlineexamsystem.Model.Question;
+import com.example.onlineexamsystem.Model.QuestionRequest;
 import com.example.onlineexamsystem.Service.QuestionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -19,24 +18,21 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
+    // افزودن سوال
     @PostMapping("/create")
-    public ResponseEntity<?> createQuestion(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<?> createQuestion(@RequestBody QuestionRequest request) {
 
-        Long examId = Long.valueOf(request.get("examId").toString());
+        if (request.getExamId() == null) {
+            return ResponseEntity.badRequest().body("examId is required");
+        }
 
-        Question question = new Question();
-        question.setTitle(request.get("title").toString());
-        question.setOption1(request.get("option1").toString());
-        question.setOption2(request.get("option2").toString());
-        question.setOption3(request.get("option3").toString());
-        question.setOption4(request.get("option4").toString());
-        question.setCorrectAnswer(request.get("correctAnswer").toString());
-
-        return ResponseEntity.ok(questionService.addQuestion(question, examId));
+        Question saved = questionService.createQuestion(request);
+        return ResponseEntity.ok(saved);
     }
 
-    @GetMapping("/{examId}")
+    // گرفتن سوالات هر آزمون
+    @GetMapping("/exam/{examId}")
     public List<Question> getQuestions(@PathVariable Long examId) {
-        return questionService.getQuestionsByExam(examId);
+        return questionService.getQuestionsByExamId(examId);
     }
 }

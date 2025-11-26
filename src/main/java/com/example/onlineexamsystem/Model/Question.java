@@ -11,12 +11,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
+    private String questionText;
 
     private String correctAnswer;
 
