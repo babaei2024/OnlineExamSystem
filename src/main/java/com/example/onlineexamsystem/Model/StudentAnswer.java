@@ -5,17 +5,21 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Question {
-
+public class StudentAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String questionText;
+    @ManyToOne
+    private AppUser student;
 
-    private String correctAnswer;
+    @ManyToOne
+    private Question question;
+    private Long questionId;
+    private String studentAnswer;
+    private Boolean isCorrect;
 
-    private Integer score;
     @ManyToOne
     private Exam exam;
+
 }
