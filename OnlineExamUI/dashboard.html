@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Online Exam System</title>
+</head>
+<body>
+
+<h2>Dashboard</h2>
+
+<p id="welcome"></p>
+<p id="roleInfo"></p>
+
+<button onclick="goToCourses()" id="btnCourse" style="display:none">➕ Create Course</button>
+<button onclick="goToExams()" id="btnExam" style="display:none">📘 Create Exam</button>
+<button onclick="goToQuestions()" id="btnQuestion" style="display:none">❓ Create Question</button>
+<button onclick="goToAnswer()" id="btnAnswer" style="display:none">📝 Answer Exam</button>
+
+<script>
+    // دریافت اطلاعات کاربر از localStorage
+    let user = JSON.parse(localStorage.getItem("loggedUser"));
+
+    if (!user) {
+        alert("Please login first");
+        window.location.href = "login.html";
+    }
+
+    document.getElementById("welcome").innerText = "Welcome " + user.fullName;
+    document.getElementById("roleInfo").innerText = "Role: " + user.role;
+
+    // نمایش دکمه‌ها بر اساس نقش کاربر
+    if (user.role === "TEACHER") {
+        document.getElementById("btnCourse").style.display = "block";
+        document.getElementById("btnExam").style.display = "block";
+        document.getElementById("btnQuestion").style.display = "block";
+    } else if (user.role === "STUDENT") {
+        document.getElementById("btnAnswer").style.display = "block";
+    }
+
+    // صفحه‌بندی
+    function goToCourses() { window.location.href = "course.html"; }
+    function goToExams() { window.location.href = "exam.html"; }
+    function goToQuestions() { window.location.href = "question.html"; }
+    function goToAnswer() { window.location.href = "answer.html"; }
+</script>
+
+</body>
+</html>

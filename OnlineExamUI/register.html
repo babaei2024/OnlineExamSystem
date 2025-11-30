@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Online Exam System</title>
+</head>
+<body>
+
+<h2>Register Page</h2>
+
+<label>First Name:</label>
+<input type="text" id="firstName"><br><br>
+
+<label>Last Name:</label>
+<input type="text" id="lastName"><br><br>
+
+<label>Email:</label>
+<input type="text" id="email"><br><br>
+
+<label>Password:</label>
+<input type="password" id="password"><br><br>
+
+<label>Role:</label>
+<select id="role">
+    <option value="TEACHER">Teacher</option>
+    <option value="STUDENT">Student</option>
+</select>
+<br><br>
+
+<button onclick="register()">Register</button>
+
+<p id="result"></p>
+
+<script>
+    function register() {
+        let user = {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        };
+        let role = document.getElementById("role").value;
+
+        fetch("http://localhost:8080/api/users/register?role=" + role, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("result").innerText = "Registered ✔\n" + JSON.stringify(data);
+        })
+        .catch(err => console.log(err));
+    }
+</script>
+
+</body>
+</html>
