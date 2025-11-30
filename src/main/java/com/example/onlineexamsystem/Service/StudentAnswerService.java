@@ -21,16 +21,22 @@ public class StudentAnswerService {
 
     public String checkAnswer(StudentAnswerRequest request) {
         Question question = questionRepository.findById(request.getQuestionId()).orElse(null);
-        if (question == null) return "Question not found";
+        if (question == null) {
+            return "Question not found";
+        }
 
         boolean isCorrect = question.getCorrectAnswer().equals(request.getStudentAnswer());
 
-        StudentAnswer studentAnswer = new StudentAnswer();
-        studentAnswer.setQuestionId(request.getQuestionId());
-        studentAnswer.setStudentAnswer(request.getStudentAnswer());
-        studentAnswer.setIsCorrect(isCorrect);
-        studentAnswerRepository.save(studentAnswer);
+        // ذخیره پاسخ دانشجو در دیتابیس
+        StudentAnswer answer = new StudentAnswer();
+        answer.setStudentId(request.getStudentId());
+        answer.setQuestion(question);
+        answer.setExam(question.getExam());
+        answer.setStudentAnswer(request.getStudentAnswer());
+        answer.setCorrect(isCorrect);
+        answer.setScore(isCorrect ? 1 : 0);
+        studentAnswerRepository.save(answer);
 
-        return isCorrect ? "Correct answer" : "Wrong answer";
+        return isCorrect ? "Correct answer - Score: 1" : "Wrong answer - Score: 0";
     }
-}
+    }
