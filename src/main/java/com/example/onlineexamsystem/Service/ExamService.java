@@ -34,4 +34,8 @@ public class ExamService {
     public List<Exam> getExams() {
         return examRepository.findAll();
     }
+
+    public List<Exam> getExamsByCourseId(Long courseId) {
+        return examRepository.findByCourseId(courseId);
+    }
 }

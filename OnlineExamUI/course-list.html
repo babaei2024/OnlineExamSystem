@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 style="text-align:center; margin-top:20px;">📚 Course List</h2>
+
+<table border="1" width="80%" align="center" cellspacing="0" cellpadding="10">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Course Name</th>
+            <th>Teacher</th>
+        </tr>
+    </thead>
+    <tbody id="coursesTable"></tbody>
+</table>
+
+<script>
+fetch("http://localhost:8080/api/courses")
+.then(res => res.json())
+.then(data => {
+    let table = document.getElementById("coursesTable");
+    data.forEach(course => {
+        table.innerHTML += `
+            <tr>
+                <td>${course.id}</td>
+                <td>${course.courseName}</td>
+                <td>${course.teacher.fullName ? course.teacher.fullName : course.teacher.firstName + " " + course.teacher.lastName}</td>
+            </tr>
+        `;
+    });
+});
+</script>
+
+</body>
+</html>

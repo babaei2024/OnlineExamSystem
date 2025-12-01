@@ -1,0 +1,15 @@
+fetch("http://localhost:8080/api/courses")
+    .then(res => res.json())
+    .then(data => {
+        let html = "<h3>Course List</h3><ul>";
+        data.forEach(c => {
+            html += <li><strong>${c.courseName}</strong> — Teacher: ${c.teacher.firstName} ${c.teacher.lastName}</li>;
+        });
+        html += "</ul>";
+        document.getElementById("courseList").innerHTML = html;
+    })
+    .catch(err => console.error("Error:", err));
+
+function goBack() {
+    window.location.href = "dashboard.html";
+}
