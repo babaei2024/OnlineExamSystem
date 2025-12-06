@@ -1,0 +1,40 @@
+localhost:8081/api/users/register?role=TEACHER
+{
+  "firstName": "elnaz",
+  "lastName": "mohammadi",
+  "email": "elnaz@gmail.com",
+  "password": "1"
+}
+--------------------------------------------
+localhost:8081/api/users/register?role=STUDENT
+{
+  "firstName": "roya",
+  "lastName": "amiri",
+  "email": "roya@gmail.com",
+  "password": "1"
+}
+---------------------------------------------
+localhost:8081/api/users
+---------------------------------------------
+localhost:8081/api/courses/create
+{
+  "courseName": "Java Basics",
+  "teacherId": 1
+}
+--------------------------------------
+localhost:8081/api/exams/create
+{
+  "examTitle": "Midterm 1",
+  "examDate": "2025-12-10",
+  "courseId": 1
+}
+------------------------------------------
+localhost:8081/api/questions/create
+{
+  "questionText": "2 + 2 = ?",
+  "correctAnswer": "4",
+  "examId": 1
+}
+------------------------------------------------
+http://localhost:8081/api/questions/exam/1
+------------------------------------------------

@@ -42,5 +42,15 @@ public class UserService {
     public AppUser findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    public List<AppUser> getStudents() {
+        Role studentRole = roleRepository.findByRoleName("STUDENT");
+        return userRepository.findByRole(studentRole);
+    }
+
+    public List<AppUser> getTeachers() {
+        Role teacherRole = roleRepository.findByRoleName("TEACHER");
+        return userRepository.findByRole(teacherRole);
+    }
+
 }
 //test token

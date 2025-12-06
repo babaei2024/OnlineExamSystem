@@ -55,4 +55,14 @@ public class UserController {
                 )
         );
     }
+    @GetMapping("/students")
+    public List<AppUser> getStudents() {
+        return userService.getStudents();
+    }
+
+    @GetMapping("/teachers")
+    public List<AppUser> getTeachers() {
+        return userService.getTeachers();
+    }
+
 }
