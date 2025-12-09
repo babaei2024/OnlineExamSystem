@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseService, Course } from './services/course.service';
+import { Login } from './login/login';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Login],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
