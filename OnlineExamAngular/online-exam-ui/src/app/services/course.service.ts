@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
 
 export interface Course {
   id: number;
@@ -11,12 +11,10 @@ export interface Course {
   providedIn: 'root'
 })
 export class CourseService {
-
+  private http = inject(HttpClient);
   private baseUrl = 'http://localhost:8081/api/courses';
 
-  constructor(private http: HttpClient) {}
-
-  getCourses(): Observable<Course[]> {
+  getCourses() {
     return this.http.get<Course[]>(this.baseUrl);
   }
 }

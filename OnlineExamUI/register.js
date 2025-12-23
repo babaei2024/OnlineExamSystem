@@ -9,7 +9,7 @@ function register() {
 
     let role = document.getElementById("role").value;
 
-    fetch("http://localhost:8080/api/users/register?role=" + role, {
+    fetch("http://localhost:8081/api/users/register?role=" + role, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(user)

@@ -1,4 +1,4 @@
-fetch("http://localhost:8080/api/courses")
+fetch("http://localhost:8081/api/courses")
     .then(res => res.json())
     .then(data => {
         let rows = "";

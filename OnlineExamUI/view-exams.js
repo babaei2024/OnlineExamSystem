@@ -8,7 +8,7 @@ if (!courseId) {
 }
 
 // گرفتن لیست امتحان‌های دوره
-fetch("http://localhost:8080/api/exams/course/" + courseId)
+fetch("http://localhost:8081/api/exams/course/" + courseId)
     .then(res => res.json())
     .then(exams => {
         let rows = "";

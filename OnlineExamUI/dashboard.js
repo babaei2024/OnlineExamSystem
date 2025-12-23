@@ -37,8 +37,23 @@ function logout() {
 }
 
 // for later
-function createCourse() { alert("Create Course Clicked"); }
-function createExam() { alert("Create Exam Clicked"); }
-function createQuestion() { alert("Create Question Clicked"); }
-function viewExams() { alert("View Exams Clicked"); }
-function answerExam() { alert("Answer Exam Clicked"); }
+function createCourse() {
+    window.location.href = "create-course.html";
+}
+
+function createExam() {
+    window.location.href = "create-exam.html";
+}
+
+function createQuestion() {
+    window.location.href = "create-question.html";
+}
+
+function viewExams() {
+    window.location.href = "view-exams.html";
+}
+
+function answerExam() {
+    window.location.href = "answer-exam.html";
+}
+
